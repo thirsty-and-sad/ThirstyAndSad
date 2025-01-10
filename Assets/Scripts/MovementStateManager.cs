@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovementStateManager : MonoBehaviour
 {
-    public float moveSeepd = 3;
+    public float moveSpeed = 3;
     [HideInInspector] public Vector3 dir;
     float hzInput, vInput;
     CharacterController controller;
@@ -13,17 +13,23 @@ public class MovementStateManager : MonoBehaviour
 
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [SerializeField] float mouseSensitivity = 150f;
+    [SerializeField] Transform playerCamera;
+    float xRotation = 0f;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         GetDirectionAndMove();
         Gravity();
+        HandleMouseLook();
         OnDrawGizmos();
     }
 
@@ -32,9 +38,9 @@ public class MovementStateManager : MonoBehaviour
         hzInput = Input.GetAxis("Horizontal");
         vInput = Input.GetAxis("Vertical");
 
-        dir =  transform.forward * vInput + transform.right * hzInput;
+        dir = transform.forward * vInput + transform.right * hzInput;
 
-        controller.Move(dir * moveSeepd * Time.deltaTime);
+        controller.Move(dir * moveSpeed * Time.deltaTime);
     }
 
     bool isGrounded()
@@ -44,16 +50,32 @@ public class MovementStateManager : MonoBehaviour
         return false;
     }
 
-    void  Gravity()
+    void Gravity()
     {
-        if (!isGrounded()) {
+        if (!isGrounded())
+        {
             velocity.y += gravity * Time.deltaTime;
-        } else if(velocity.y < 0) {
+        }
+        else if (velocity.y < 0)
+        {
             velocity.y = -2;
         }
 
         controller.Move(velocity * Time.deltaTime);
     }
+
+    void HandleMouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+        transform.Rotate(Vector3.up * mouseX);
+
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
