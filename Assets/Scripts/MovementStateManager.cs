@@ -14,22 +14,26 @@ public class MovementStateManager : MonoBehaviour
     [SerializeField] float gravity = -9.81f;
     Vector3 velocity;
 
-    [SerializeField] float mouseSensitivity = 150f;
-    [SerializeField] Transform playerCamera;
-    float xRotation = 0f;
+    // Mouse look variables
+    [SerializeField] float mouseSensitivity = 150f; // Sensitivity of the mouse
+    [SerializeField] Transform playerCamera;        // Assign your camera here in the inspector
+    float xRotation = 0f;                           // Tracks vertical camera rotation
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = GetComponent<CharacterController>();
 
+        // Lock the cursor to the center of the screen
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    // Update is called once per frame
     void Update()
     {
         GetDirectionAndMove();
         Gravity();
-        HandleMouseLook();
+        //HandleMouseLook();
         OnDrawGizmos();
     }
 
@@ -66,13 +70,16 @@ public class MovementStateManager : MonoBehaviour
 
     void HandleMouseLook()
     {
+        // Get mouse movement input
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+        // Rotate the player horizontally
         transform.Rotate(Vector3.up * mouseX);
 
+        // Rotate the camera vertically
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Prevent over-rotation
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
