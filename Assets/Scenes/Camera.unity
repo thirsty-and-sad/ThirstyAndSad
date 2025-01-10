@@ -164,6 +164,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  characterController: {fileID: 0}
+  moveSpeed: 3
+  distanceFromPlayer: 5
+  cameraOffset: {x: 0, y: 2, z: 0}
+  mouseSensitivity: 150
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08586228, y: -0.17099224, z: 0.014959889, w: 0.98140997}
-  m_LocalPosition: {x: 1.777, y: 1.859, z: -4.15}
+  m_LocalPosition: {x: 0.71, y: 2.09, z: -4.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -348,6 +353,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1228199942}
+  characterController: {fileID: 1228199943}
+  moveSpeed: 3
+  distanceFromPlayer: 5
+  cameraOffset: {x: 0, y: 2, z: 0}
+  mouseSensitivity: 150
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
