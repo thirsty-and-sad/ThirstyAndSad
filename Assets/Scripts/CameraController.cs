@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform player;
     public CharacterController characterController;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 10f;
 
     public float distanceFromPlayer = 5f;
     public Vector3 cameraOffset = new Vector3(0, 2, 0);

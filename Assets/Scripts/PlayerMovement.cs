@@ -5,6 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    Animator playerAnim;
+    private void Awake()
+    {
+        playerAnim = GetComponent<Animator>(); 
+    }
+
     public Camera playerCamera;
     public float walkSpeed = 5f;
     public float runSpeed = 9f;
@@ -31,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+// CODE POUR ANIM
+        }
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
