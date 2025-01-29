@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController characterController;
     public Transform playerModel;
+    public Transform playerHead;
     public float walkingSpeed = 5.0f;
     public float sprintingSpeed = 10.0f;
     public float acceleration = 15.0f;
@@ -36,8 +37,9 @@ public class PlayerMovement : MonoBehaviour
         } 
         else
         {
-            playerModel.forward = directional_input;
             Vector3 target = directional_input * get_current_speed();
+            target = Quaternion.AngleAxis(playerHead.eulerAngles.y, Vector3.up) * target;
+            playerModel.forward = target.normalized;
             movement_input = Vector3.MoveTowards(movement_input, target, acceleration * Time.deltaTime);
         }
 
@@ -54,9 +56,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         characterController.Move((movement_input + Vector3.up * up_vel) * Time.deltaTime);
-
-
-
     }
 
     float get_current_speed()
