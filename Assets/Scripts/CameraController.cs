@@ -20,6 +20,6 @@ public class CameraController : MonoBehaviour
         xRotation += mouse_input.x;
         yRotation += mouse_input.y;
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);
-        playerHead.localRotation = Quaternion.Euler(yRotation, xRotation, 0);
+        playerHead.localRotation = Quaternion.Euler(-yRotation, xRotation, 0);
     }
 }
