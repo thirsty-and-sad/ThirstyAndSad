@@ -25,7 +25,7 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-       player = new Character("Investigateur", GameManager.Instance.playerSanity, new List<Attack> 
+       player = new Character("Remy", GameManager.Instance.playerSanity, new List<Attack> 
         {
             new Attack("Chant Impie", 15), 
             new Attack("Prière Inutile", 10) 
