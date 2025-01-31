@@ -3,10 +3,16 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+<<<<<<< HEAD
     public Vector2 mouseSensitivity = Vector2.one;
     public Transform playerHead;
     float xRotation, yRotation;
     InputAction lookAction;
+=======
+    public Transform player;
+    public CharacterController characterController;
+    public float moveSpeed = 10f;
+>>>>>>> 42de92a17aaf76e81b325cdc2dec127dfa4e9e55
 
     private void Start()
     {
