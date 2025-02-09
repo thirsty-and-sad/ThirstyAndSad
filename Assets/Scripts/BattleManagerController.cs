@@ -13,6 +13,9 @@ public class BattleManager : MonoBehaviour
 
     public Image enemyImage;
     public Sprite enemy1Sprite, enemy2Sprite, enemy3Sprite;
+
+    public AudioSource audioSource;
+    public AudioClip enemy1Music, enemy2Music, enemy3Music;
     
     public GameObject buttonBackground;
     public Button attackButton1;
@@ -39,18 +42,23 @@ public class BattleManager : MonoBehaviour
         case "Enemy1":
             enemy = new Character("Zombie", 50, new List<Attack> { new Attack("Morsure", 8) });
             enemyImage.sprite = enemy1Sprite;
+            audioSource.clip = enemy1Music;
             break;
 
         case "Enemy2":
             enemy = new Character("Mutant", 80, new List<Attack> { new Attack("Griffes", 12), new Attack("Morsure", 10) });
             enemyImage.sprite = enemy2Sprite;
+            audioSource.clip = enemy2Music;
             break;
 
         case "Enemy3":
             enemy = new Character("Boss", 120, new List<Attack> { new Attack("Regard Foudroyant", 20), new Attack("Déformation Réalité", 15) });
             enemyImage.sprite = enemy3Sprite;
+            audioSource.clip = enemy3Music;
             break;
     }
+
+    audioSource.Play();
 
     UpdateUI();
     EnableButtons(false);
