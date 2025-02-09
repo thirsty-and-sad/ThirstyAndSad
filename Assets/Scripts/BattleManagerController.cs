@@ -10,6 +10,9 @@ public class BattleManager : MonoBehaviour
     public Slider enemySanityBar;
     public TextMeshProUGUI battleLog;
     public GameObject hallucinationEffect;
+
+    public Image enemyImage;
+    public Sprite enemy1Sprite, enemy2Sprite, enemy3Sprite;
     
     public GameObject buttonBackground;
     public Button attackButton1;
@@ -25,16 +28,33 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-       player = new Character("Remy", GameManager.Instance.playerSanity, new List<Attack> 
-        {
-            new Attack("Chant Impie", 15), 
-            new Attack("Prière Inutile", 10) 
-        });
+    player = new Character("Remy", GameManager.Instance.playerSanity, new List<Attack> 
+    {
+        new Attack("Chant Impie", 15), 
+        new Attack("Prière Inutile", 10) 
+    });
 
-        enemy = new Character("Créature Cthonienne", 80, new List<Attack> 
-        { 
-            new Attack("Hurlement Cosmique", 10) 
-        });
+    switch (GameManager.Instance.currentEnemyTag)
+    {
+        case "Enemy1":
+            enemy = new Character("Zombie", 50, new List<Attack> { new Attack("Morsure", 8) });
+            enemyImage.sprite = enemy1Sprite;
+            break;
+
+        case "Enemy2":
+            enemy = new Character("Mutant", 80, new List<Attack> { new Attack("Griffes", 12), new Attack("Morsure", 10) });
+            enemyImage.sprite = enemy2Sprite;
+            break;
+
+        case "Enemy3":
+            enemy = new Character("Boss", 120, new List<Attack> { new Attack("Regard Foudroyant", 20), new Attack("Déformation Réalité", 15) });
+            enemyImage.sprite = enemy3Sprite;
+            break;
+    }
+
+    UpdateUI();
+    EnableButtons(false);
+    StartCoroutine(BattleLoop());
 
         attackButton1.onClick.AddListener(() => StartCoroutine(PlayerAttack(0)));
         attackButton2.onClick.AddListener(() => StartCoroutine(PlayerAttack(1))); 
